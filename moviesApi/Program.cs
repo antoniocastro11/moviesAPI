@@ -1,6 +1,13 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using moviesApi.Data;
 
+var builder = WebApplication.CreateBuilder(args);
+var connectionString  = builder.Configuration.GetConnectionString("MovieConnection");
+
+builder.Services.AddDbContext<MovieContext>(opts => opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 // Add services to the container.
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
