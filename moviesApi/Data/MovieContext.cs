@@ -12,4 +12,5 @@ public class MovieContext : DbContext
     }
     public DbSet<Movie> Movies => Set<Movie>();// um set para cada entidade
     public DbSet<Cinema> Cinemas => Set<Cinema>();
+    public DbSet<Address> Addresses => Set<Address>();
 }
