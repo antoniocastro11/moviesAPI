@@ -6,7 +6,7 @@ using moviesApi.Models;
 
 namespace moviesApi.Controllers;
 
-[Controller]
+[ApiController]
 [Route("[Controller]")]
 
 public class CinemaController(MovieContext context, IMapper mapper) : ControllerBase
@@ -51,7 +51,6 @@ public class CinemaController(MovieContext context, IMapper mapper) : Controller
         context.SaveChanges();
         return NoContent();
     }
-
 
     [HttpDelete("{id}")]
     public IActionResult DeleteCinemaById(int id)
