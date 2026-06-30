@@ -11,5 +11,5 @@ public class Address
     [MaxLength(50)]
     public string Street { get; set; }
     public int Number { get; set; }
-
+    public virtual Cinema Cinema { get; set; }
 }

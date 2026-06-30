@@ -10,7 +10,8 @@ namespace moviesApi.Models
 
         [Required(ErrorMessage ="O campo nome é obrigatório")]
         public string Name { get; set; }
-        
 
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

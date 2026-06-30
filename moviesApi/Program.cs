@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using moviesApi.Data;
 
@@ -8,6 +9,9 @@ builder.Services.AddDbContext<MovieContext>(opts => opts.UseMySql(connectionStri
 // Add services to the container.
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddDbContext<MovieContext>(opts =>
+    opts.UseLazyLoadingProxies().UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
