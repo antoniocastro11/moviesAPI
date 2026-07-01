@@ -22,4 +22,6 @@ public class Movie
     [MaxLength(70)]
     public string Director {get; set;}
 
+    public virtual ICollection<Session> Sessions {get; set;}
+
 }

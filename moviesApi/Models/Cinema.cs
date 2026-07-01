@@ -13,5 +13,8 @@ namespace moviesApi.Models
 
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
+
+        public int SessionId { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
     }
 }
