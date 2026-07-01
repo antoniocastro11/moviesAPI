@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using moviesApi.Data.Dtos.Session;
+using System.ComponentModel.DataAnnotations;
 
 namespace moviesApi.Data.Dtos.Movie
 {
@@ -9,5 +10,7 @@ namespace moviesApi.Data.Dtos.Movie
         public string Genre { get; set; }
         public int Duration { get; set; }
         public string Director { get; set; }
+        public ICollection<ReadSessionDto> Sessions { get; set; }
+
     }
 }

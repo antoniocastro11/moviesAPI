@@ -9,6 +9,8 @@ public class MovieProfile : Profile
     {
         CreateMap<CreateMovieDto, Movie>();
         CreateMap<UpdateMovieDto, Movie>();
-        CreateMap<Movie, ReadMovieDto>();
+        CreateMap<Movie, ReadMovieDto>()
+            .ForMember(filmeDto => filmeDto.Sessions,
+                   opt => opt.MapFrom(filme => filme.Sessions));
     }
 }
