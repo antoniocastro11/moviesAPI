@@ -13,18 +13,12 @@ namespace moviesApi.Controllers;
 public class SessionController(MovieContext context, IMapper mapper) : ControllerBase
 {
 
-    public Session? GetSessionAux(int id)
-    {
-        var session = context.Sessions.Find(id);
-        return session;
-    }
-
     public IActionResult CreateSession(CreateSessionDto dto)
     {
         Session session = mapper.Map<Session>(dto);
         context.Add(session);
         context.SaveChanges();
-        return CreatedAtAction(nameof(GetSessionById), new { Id = session.Id}, session );
+        return CreatedAtAction(nameof(GetSessionById), new { movieId = session.MovieId, cinemaId = session.CinemaId }, session );
     }
 
     public IEnumerable<ReadSessionDto> GetSessions()
@@ -33,9 +27,10 @@ public class SessionController(MovieContext context, IMapper mapper) : Controlle
     }
 
 
-    public IActionResult GetSessionById(int id)
+    [HttpGet("{movieId}/{cinemaId}")]
+    public IActionResult GetSessionById(int movieId, int cinemaId)
     {
-        var session = GetSessionAux(id);
+        var session = context.Sessions.FirstOrDefault(session => session.MovieId == movieId && session.CinemaId == cinemaId);
         if(session is null) return NotFound();
         ReadSessionDto sessionDto = mapper.Map<ReadSessionDto>(session);
         return Ok(sessionDto);
