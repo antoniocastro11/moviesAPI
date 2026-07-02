@@ -26,9 +26,12 @@ public class MovieController(MovieContext context, IMapper mapper) : ControllerB
     }
 
     [HttpGet]
-    public IEnumerable<ReadMovieDto> GetMovies([FromQuery] int skip = 0, [FromQuery] int take = 10)
+    public IEnumerable<ReadMovieDto> GetMovies([FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] string? cinemaName = null)
     {
-        return mapper.Map<List<ReadMovieDto>>(context.Movies.Skip(skip).Take(take).ToList());
+        if (cinemaName is null) {
+            return mapper.Map<List<ReadMovieDto>>(context.Movies.Skip(skip).Take(take).ToList()); 
+        }
+        return mapper.Map<List<ReadMovieDto>>(context.Movies.Skip(skip).Take(take).Where(movie => movie.Sessions.Any(session => session.Cinema.Name == cinemaName))).ToList();
     }
 
     [HttpGet("{id}")]
