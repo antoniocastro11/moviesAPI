@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using moviesApi.Data;
 using moviesApi.Data.Dtos.Cinema;
 using moviesApi.Models;
@@ -29,9 +30,12 @@ public class CinemaController(MovieContext context, IMapper mapper) : Controller
     }
 
     [HttpGet]
-    public IEnumerable<ReadCinemaDto> GetCinemas([FromQuery] int skip = 0, [FromQuery] int take = 10)
+    public IEnumerable<ReadCinemaDto> GetCinemas([FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] int? addressId = null)
     {
-        return mapper.Map<List<ReadCinemaDto>>(context.Cinemas.Skip(skip).Take(take));
+        if (addressId is null) {
+            return mapper.Map<List<ReadCinemaDto>>(context.Cinemas.Skip(skip).Take(take));
+        }
+        return mapper.Map<List<ReadCinemaDto>>(context.Cinemas.FromSqlRaw($"SELECT Id, Name, AddressId FROM Cinemas WHERE Cinemas.AddressId = {addressId}").ToList());
     }
 
     [HttpGet("{id}")]
