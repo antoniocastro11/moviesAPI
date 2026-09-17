@@ -13,7 +13,8 @@ namespace moviesApi.Controllers;
 public class SessionController(MovieContext context, IMapper mapper) : ControllerBase
 {
 
-    public IActionResult CreateSession(CreateSessionDto dto)
+    [HttpPost]
+    public IActionResult CreateSession([FromBody] CreateSessionDto dto)
     {
         Session session = mapper.Map<Session>(dto);
         context.Add(session);
@@ -21,6 +22,7 @@ public class SessionController(MovieContext context, IMapper mapper) : Controlle
         return CreatedAtAction(nameof(GetSessionById), new { movieId = session.MovieId, cinemaId = session.CinemaId }, session );
     }
 
+    [HttpGet]
     public IEnumerable<ReadSessionDto> GetSessions()
     {
         return mapper.Map<List<ReadSessionDto>>(context.Sessions.ToList());
