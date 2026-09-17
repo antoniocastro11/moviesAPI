@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using moviesApi.Data;
 using moviesApi.Profiles;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var connString  = builder.Configuration.GetConnectionString("DatabaseConnection");
@@ -25,6 +26,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
