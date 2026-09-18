@@ -4,15 +4,18 @@ API REST desenvolvida em **ASP.NET Core** para gerenciamento de cinemas, filmes,
 
 O projeto segue uma arquitetura organizada utilizando DTOs, AutoMapper e Entity Framework Core, oferecendo uma base sólida para aplicações back-end em .NET
 
+> Este foi o meu **primeiro projeto web desenvolvido em .NET**, criado para aprender a tecnologia. É intencionalmente básico e organizado por tipos (Controllers, Models, DTOs...), não por features, mas já cumpriu seu objetivo de aprendizado.
+
 ---
 
 ## Tecnologias Utilizadas
 
-- C#
+- C# / .NET 10
 - ASP.NET Core
-- Entity Framework Core
-- MySQL
+- Entity Framework Core 10
+- PostgreSQL (Npgsql)
 - AutoMapper
+- Scalar (documentação interativa da API via OpenAPI)
 
 ---
 
@@ -25,13 +28,20 @@ cd moviesAPI/moviesApi
 
 dotnet restore
 
+# Configure a connection string do PostgreSQL (via user-secrets)
+dotnet user-secrets set "ConnectionStrings:DatabaseConnection" "Host=localhost;Database=movies;Username=postgres;Password=postgres"
+
 dotnet ef database update
 
 dotnet run
 ```
+
+Em ambiente de desenvolvimento, a documentação interativa da API (Scalar) fica disponível em `/scalar/v1`.
+
 ---
 
 ## Árvore de pastas do projeto
+
 ```
 moviesApi
 ├── Controllers
@@ -67,19 +77,9 @@ moviesApi
 
 ## Funcionalidades
 
-A API disponibiliza operações CRUD para as seguintes entidades:
+A API disponibiliza operações CRUD para Filmes, Cinemas e Endereços (criar, consultar, atualizar e remover registros).
 
-- Filmes
-- Cinemas
-- Sessões
-- Endereços
-
-Cada recurso possui endpoints para:
-
-- Criar registros
-- Consultar registros
-- Atualizar informações
-- Remover registros
+Sessões possuem apenas criação e consulta (não há atualização/remoção).
 
 ---
 
@@ -112,14 +112,15 @@ Essa estrutura facilita a manutenção, escalabilidade e reutilização do códi
 - YAGNI (You Aren't Gonna Need It)
 
 ## Ferramentas utilizadas durante o desenvolvimento:
+
 - Postman
 - DBeaver
 - Git e GitHub
 - Visual Studio & Visual Studio Code
 
- ---
+  ***
 
-## Possíveis melhorias
+## Dívidas técnicas - Possíveis melhorias
 
 - Paginação
 - Filtros e ordenação
